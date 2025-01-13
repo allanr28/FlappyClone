@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.Jobs;
 
 namespace AllanReford._flappyclone.Code
 {
@@ -16,13 +14,31 @@ namespace AllanReford._flappyclone.Code
             _rb = GetComponent<Rigidbody2D>();
         }
 
-        private void Update()
+        // private void Update()
+        // {
+        //     if (Manager.Instance.GameManager.IsPaused())
+        //     {
+        //         _rb.simulated = false;
+        //         Time.timeScale = 0;
+        //     }
+        //     else
+        //     {
+        //         _rb.simulated = true;
+        //         Time.timeScale = 1;
+        //     }
+        // }
+
+        private void OnEnable()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Manager.Instance.InputManager != null)
             {
-                Jump();
-                
+                Manager.Instance.InputManager.OnJumpEvent += Jump;
             }
+        }
+
+        private void OnDisable()
+        {
+            Manager.Instance.InputManager.OnJumpEvent -= Jump;
         }
 
         private void Jump()
@@ -40,7 +56,7 @@ namespace AllanReford._flappyclone.Code
             
             if (other.gameObject.CompareTag("Goal"))
             {
-                Debug.Log("Bing");
+                //TODO: Implement increase score events
             }
         }
     }

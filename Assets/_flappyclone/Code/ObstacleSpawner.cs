@@ -20,12 +20,12 @@ namespace AllanReford._flappyclone.Code
             }
         }
 
-        private GameObject CreateObstacle()
+        private void CreateObstacle()
         {
             float yPos = Random.Range(-2.5f, 2.5f);
             Vector3 position = new Vector3(spawnPoint.position.x, yPos, spawnPoint.position.z);
-            
-            return Instantiate(prefab, position, Quaternion.identity);
+
+            Instantiate(prefab, position, Quaternion.identity);
         }
     }
 }
