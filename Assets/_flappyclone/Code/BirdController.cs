@@ -5,7 +5,7 @@ namespace AllanReford._flappyclone.Code
     public class BirdController : MonoBehaviour
     {
         public float jumpForce;
-        public Transform deathPoint;
+        public float rotationSpeed = 10f;
         
         private Rigidbody2D _rb;
 
@@ -14,20 +14,25 @@ namespace AllanReford._flappyclone.Code
             _rb = GetComponent<Rigidbody2D>();
         }
 
-        // private void Update()
-        // {
-        //     if (Manager.Instance.GameManager.IsPaused())
-        //     {
-        //         _rb.simulated = false;
-        //         Time.timeScale = 0;
-        //     }
-        //     else
-        //     {
-        //         _rb.simulated = true;
-        //         Time.timeScale = 1;
-        //     }
-        // }
-
+        private void Update()
+        {
+            if (!Manager.Instance.GameManager.IsRoundStarted())
+                return;
+            
+            if (Manager.Instance.GameManager.IsGamePaused())
+            {
+                _rb.simulated = false;
+                Time.timeScale = 0;
+            }
+            else
+            {
+                _rb.simulated = true;
+                Time.timeScale = 1;
+                
+                transform.rotation = Quaternion.Euler(0,0, _rb.linearVelocity.y * rotationSpeed);
+            }
+        }
+        
         private void OnEnable()
         {
             if (Manager.Instance.InputManager != null)
@@ -51,12 +56,12 @@ namespace AllanReford._flappyclone.Code
         {
             if (other.gameObject.CompareTag("Obstacle"))
             {
-                transform.position = deathPoint.position;
+                Manager.Instance.GameManager.Die();
             }
             
             if (other.gameObject.CompareTag("Goal"))
             {
-                //TODO: Implement increase score events
+                Manager.Instance.GameManager.IncreaseScore();
             }
         }
     }

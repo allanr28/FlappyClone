@@ -44,6 +44,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Restart"",
+                    ""type"": ""Button"",
+                    ""id"": ""cb516831-7654-4a5d-bb46-f69905529f85"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -68,6 +77,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""77ae6efc-91da-41af-adbb-bb3c45437142"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Restart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -78,6 +98,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Interaction = asset.FindActionMap("Interaction", throwIfNotFound: true);
         m_Interaction_Jump = m_Interaction.FindAction("Jump", throwIfNotFound: true);
         m_Interaction_Pause = m_Interaction.FindAction("Pause", throwIfNotFound: true);
+        m_Interaction_Restart = m_Interaction.FindAction("Restart", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -146,12 +167,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private List<IInteractionActions> m_InteractionActionsCallbackInterfaces = new List<IInteractionActions>();
     private readonly InputAction m_Interaction_Jump;
     private readonly InputAction m_Interaction_Pause;
+    private readonly InputAction m_Interaction_Restart;
     public struct InteractionActions
     {
         private @PlayerInput m_Wrapper;
         public InteractionActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Jump => m_Wrapper.m_Interaction_Jump;
         public InputAction @Pause => m_Wrapper.m_Interaction_Pause;
+        public InputAction @Restart => m_Wrapper.m_Interaction_Restart;
         public InputActionMap Get() { return m_Wrapper.m_Interaction; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -167,6 +190,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @Restart.started += instance.OnRestart;
+            @Restart.performed += instance.OnRestart;
+            @Restart.canceled += instance.OnRestart;
         }
 
         private void UnregisterCallbacks(IInteractionActions instance)
@@ -177,6 +203,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @Restart.started -= instance.OnRestart;
+            @Restart.performed -= instance.OnRestart;
+            @Restart.canceled -= instance.OnRestart;
         }
 
         public void RemoveCallbacks(IInteractionActions instance)
@@ -198,5 +227,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     {
         void OnJump(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnRestart(InputAction.CallbackContext context);
     }
 }

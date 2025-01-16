@@ -9,7 +9,10 @@ namespace AllanReford._flappyclone.Code
 
         private void Update()
         {
-            transform.Translate(Vector3.left * speed * Time.deltaTime);
+            if (Manager.Instance.GameManager.IsGamePaused())
+                return;
+            
+            transform.Translate(Vector3.left * (speed * Time.deltaTime));
             
             if(transform.position.x < -5)
                 Destroy(gameObject);

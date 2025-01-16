@@ -7,11 +7,16 @@ namespace AllanReford._flappyclone.Code
         public Transform spawnPoint;
         public GameObject prefab;
         
+        private bool _spawnObstacles = false;
+        
         public float rateOfSpawn = 1f;
         private float _timer;
 
         private void Update()
         {
+            if (_spawnObstacles == false)
+                return;
+            
             _timer += Time.deltaTime;
             if (_timer >= rateOfSpawn)
             {
@@ -20,6 +25,16 @@ namespace AllanReford._flappyclone.Code
             }
         }
 
+        public void SpawnObstacles()
+        {
+            _spawnObstacles = true;
+        }
+
+        public void StopSpawningObstacles()
+        {
+            _spawnObstacles = false;
+        }
+        
         private void CreateObstacle()
         {
             float yPos = Random.Range(-2.5f, 2.5f);
