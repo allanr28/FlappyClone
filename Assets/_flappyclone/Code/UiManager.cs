@@ -6,13 +6,21 @@ namespace AllanReford._flappyclone.Code
     public class UiManager : MonoBehaviour
     {
         public TextMeshProUGUI scoreText;
+        public TextMeshProUGUI hiscoreText;
         public TextMeshProUGUI countDownText;
+
+        public Transform pauseMenu;
         
         public TextMeshProUGUI gameOverText;
 
         public void UpdateScoreText(int val)
         {
             scoreText.text = "Score: "  + val.ToString();
+        }
+
+        public void UpdateHiScoreText(int val)
+        {
+            hiscoreText.text = "HiScore: " + val.ToString();
         }
         public void UpdateCountDownText(float val)
         {
@@ -38,5 +46,11 @@ namespace AllanReford._flappyclone.Code
         {
             gameOverText.gameObject.SetActive(false);
         }
+
+        public void TogglePauseMenu(bool toggle)
+        {
+            pauseMenu.gameObject.SetActive(toggle);
+        }
+        
     }
 }

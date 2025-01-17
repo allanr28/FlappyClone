@@ -8,6 +8,7 @@ namespace AllanReford._flappyclone.Input
         public event Action OnJumpEvent;
         public event Action OnPauseEvent;
         public event Action OnRestartEvent;
+        public event Action OnQuitEvent;
 
         private PlayerInput _playerInput;
 
@@ -22,6 +23,7 @@ namespace AllanReford._flappyclone.Input
             _playerInput.Interaction.Jump.performed += ctx => OnJumpEvent?.Invoke();
             _playerInput.Interaction.Pause.performed += ctx => OnPauseEvent?.Invoke();
             _playerInput.Interaction.Restart.performed += ctx => OnRestartEvent?.Invoke();
+            _playerInput.Interaction.Quit.performed += ctx => OnQuitEvent?.Invoke();
         }
     }
 }

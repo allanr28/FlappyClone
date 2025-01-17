@@ -50,6 +50,8 @@ namespace AllanReford._flappyclone.Code
         {
             _rb.linearVelocity = Vector2.zero; // Reset the current velocity for consistent jumps
             _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            
+            Manager.Instance.AudioManager.PlaySoundEffect("Jump");
         }
 
         private void OnTriggerEnter2D(Collider2D other)
