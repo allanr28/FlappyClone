@@ -1,7 +1,8 @@
-#FlappyClone
+# FlappyClone
 This is a basic 'Flappy Bird' clone in the unity game engine. It is not finished or polished but has all of the major parts of the game
 
-#Sound effect attribution
+# Sound effect attribution
+
 Menu song - moodmode from Pixabay
 -https://pixabay.com/music/video-games-game-8-bit-on-278083/
 
